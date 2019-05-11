@@ -4,7 +4,7 @@
 
     <section class="tags" v-if="this.$site.themeConfig.tags&&tags&&tags.length>0">
       <span class="tagPopup" v-for="tag in tags">
-        <router-link :to="'/tag/?tag='+tag" class="tag">{{tag}}</router-link>
+        <router-link :to="'/tags/?tag='+tag" class="tag">{{tag}}</router-link>
       </span>
     </section>
 

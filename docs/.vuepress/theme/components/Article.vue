@@ -2,23 +2,30 @@
   <div class="abstract">
     <div class="abstract-item">
       <div class="text-hover">
-        <a href="/blog/views/ide/vscode/setting.html" class data-v-2c4220e4>Vs code 配置</a>
+        <router-link :to="tag.path">{{tag.title}}</router-link>
       </div>
       <!---->
       <div class="abstract">
         <div class="tip custom-block">
-          <p class="custom-block-title">前言</p>
+          <!-- <p class="custom-block-title">{{tag.title}}</p>
           <p>个人一些自动的 vs code 配置(Settings.json)</p>
           <ul>
             <li>VsCode 常用插件配置</li>
-          </ul>
+          </ul>-->
+          <div v-html="tag.excerpt"></div>
         </div>
       </div>
       <div class="details-btn">
-        <div data-v-e422eb16 class="v-btn">
-          <i data-v-e422eb16 class="iconfont" style="font-size: 0.8rem; color: rgb(153, 153, 153);"></i>
-          阅读全文
-        </div>
+        <router-link :to="tag.path">
+          <div data-v-e422eb16 class="v-btn">
+            <i
+              data-v-e422eb16
+              class="iconfont"
+              style="font-size: 0.8rem; color: rgb(153, 153, 153);"
+            ></i>
+            阅读全文
+          </div>
+        </router-link>
       </div>
       <div
         class="v-divider"
@@ -29,31 +36,38 @@
           class="iconfont h-date article-info-item"
           style="font-size: 0.8rem; color: rgb(153, 153, 153);"
         >
-          <em>2019-3-22</em>
+          <em>{{tag.lastUpdated}}</em>
         </i>
         <i
           class="iconfont h-tag article-info-item"
           style="font-size: 0.8rem; color: rgb(153, 153, 153);"
+          v-for="t in tag.frontmatter.tags"
         >
-          <em class="text-item active">vscode</em>
-          <em class="text-item">IDE</em>
+          <em class="text-item active">{{t}}</em>
+          <!-- <em class="text-item">IDE</em> -->
         </i>
-        <i
+        <!-- <i
           class="iconfont h-classify article-info-item"
           style="font-size: 0.8rem; color: rgb(153, 153, 153);"
         >
           <em class="text-item">IDE</em>
-        </i>
+        </i>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    tag: {}
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
+$color = #3eaf7c;
+
 .abstract {
   margin-top: 1rem;
 
@@ -72,6 +86,9 @@ export default {};
     background-color: #fff;
     position: relative;
 
+    .abstract {
+    }
+
     .text-hover {
       position: relative;
       font-size: 1.2rem;
@@ -86,7 +103,7 @@ export default {};
           height: 2px;
           bottom: 0;
           left: 0;
-          background-color: #3eaf7c;
+          background-color: $color;
           visibility: hidden;
           -webkit-transform: scaleX(0);
           transform: scaleX(0);
@@ -118,6 +135,35 @@ export default {};
         color: #2c3e50;
         border-radius: 0.1rem;
         line-height: 1.2;
+
+        &:hover {
+          background-color: $color;
+          color: #fff;
+        }
+      }
+    }
+
+    .article-info {
+      .article-info-item {
+        margin-right: 1rem;
+        line-height: 1.6rem;
+        margin-right: 1rem;
+        line-height: 1.6rem;
+        font-style: normal;
+
+        .text-item.active {
+          font-weight: 700;
+          border: 1px $color;
+          font-style: normal;
+          margin-left: 0.4rem;
+          cursor: pointer;
+          background-color: #f6f6f6;
+          padding: 0.2rem 0.4rem;
+
+          &:hover {
+            color: $color;
+          }
+        }
       }
     }
 

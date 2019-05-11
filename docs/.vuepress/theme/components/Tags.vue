@@ -1,23 +1,69 @@
 <template>
   <div>
     <div class="content default"></div>
+    {{tags}}
     <div class="tag">
       <div class="items">
-        <span>vue</span><span>vue</span><span>vue</span><span>vue</span>
+        <span
+          v-for="taginfo in tags"
+          @click="change(taginfo.tag)"
+        >{{taginfo.tag}}({{taginfo.number}})</span>
       </div>
       <div class="article-list">
-          <Article/>
+        <Article v-for="tag in info" :tag="tag"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Article from "@theme/components/Article.vue"
+import Article from "@theme/components/Article.vue";
 export default {
-    components:{
-        Article
+  components: {
+    Article
+  },
+  data() {
+    return {
+      info: []
+    };
+  },
+  computed: {
+    tags() {
+      let allTags = [];
+      this.$site.pages.forEach(v => {
+        if (v.frontmatter.tags) {
+          allTags.push(v.frontmatter.tags);
+        } else if (v.frontmatter.tag) {
+          allTags.push(v.frontmatter.tag);
+        }
+      });
+      allTags = allTags.join(",").split(",");
+      let flatTags = Array.from(new Set(allTags));
+      return flatTags.reduce((res, v) => {
+        let o = {};
+        o.tag = v;
+        o.number = allTags.filter(value => value === v).length;
+        res.push(o);
+        return res;
+      }, []);
     }
+  },
+  methods: {
+    change(tag) {
+      this.info = this.$site.pages.filter(v => {
+        let tags=v.frontmatter.tags
+        if (tags) {
+          return tags.some(v => v === tag);
+        }
+      });
+    }
+  },
+  mounted() {
+    let tag = this.$route.query.tag;
+    if (tag) {
+      this.change(tag);
+    }
+  }
 };
 </script>
 
@@ -44,10 +90,11 @@ export default {
       font-size: 1rem;
       box-shadow: 0 1px 0.25rem 0 hsla(0, 0%, 57%, 0.21);
       transition: all 0.3s;
-      background-color :red;
-      &:hover{
-          transform: scale(1.2);
-        }
+      background-color: red;
+
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }

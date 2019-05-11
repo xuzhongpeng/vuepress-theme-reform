@@ -1,7 +1,7 @@
 ---
 title: 手写一个promise
 desc: 哇哦啊我
-tags: [react,js1]
+tags: [react,js]
 ---
 
 ## 第一
