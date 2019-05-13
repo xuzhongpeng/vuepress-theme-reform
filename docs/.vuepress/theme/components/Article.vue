@@ -6,7 +6,7 @@
       </div>
       <!---->
       <div class="abstract">
-        <div class="tip custom-block">
+        <div class="tip custom-block" v-if="tag.excerpt">
           <!-- <p class="custom-block-title">{{tag.title}}</p>
           <p>个人一些自动的 vs code 配置(Settings.json)</p>
           <ul>
@@ -18,37 +18,23 @@
       <div class="details-btn">
         <router-link :to="tag.path">
           <div data-v-e422eb16 class="v-btn">
-            <i
-              data-v-e422eb16
-              class="iconfont"
-              style="font-size: 0.8rem; color: rgb(153, 153, 153);"
-            ></i>
+            <i data-v-e422eb16 class="what"></i>
             阅读全文
           </div>
         </router-link>
       </div>
-      <div
-        class="v-divider"
-        style="border-color: rgb(234, 236, 239); margin-top: 0.7rem; margin-bottom: 0.7rem;"
-      ></div>
-      <div class="article-info">
-        <i
-          class="iconfont h-date article-info-item"
-          style="font-size: 0.8rem; color: rgb(153, 153, 153);"
-        >
-          <em>{{tag.lastUpdated}}</em>
+      <div class="v-divider"></div>
+      <div class="article-info article-info-item">
+        <i class="what">
+          <em v-if="tag.lastUpdated">{{tag.lastUpdated}}</em>
         </i>
-        <i
-          class="iconfont h-tag article-info-item"
-          style="font-size: 0.8rem; color: rgb(153, 153, 153);"
-          v-for="t in tag.frontmatter.tags"
-        >
-          <em class="text-item active">{{t}}</em>
-          <!-- <em class="text-item">IDE</em> -->
+        <i class="what" v-for="t in tag.frontmatter.tags">
+          <em class="text-item active" v-if="t==tg">{{t}}</em>
+          <em class="text-item" v-else @click="$emit('turnTo',t)">{{t}}</em>
         </i>
         <!-- <i
           class="iconfont h-classify article-info-item"
-          style="font-size: 0.8rem; color: rgb(153, 153, 153);"
+          class="what"
         >
           <em class="text-item">IDE</em>
         </i>-->
@@ -60,7 +46,8 @@
 <script>
 export default {
   props: {
-    tag: {}
+    tag: {}, //索引到的数据
+    tg: ""
   }
 };
 </script>
@@ -70,6 +57,7 @@ $color = #3eaf7c;
 
 .abstract {
   margin-top: 1rem;
+  width: 100%;
 
   .abstract-item {
     margin: 0 auto 1.2rem;
@@ -144,25 +132,27 @@ $color = #3eaf7c;
     }
 
     .article-info {
-      .article-info-item {
-        margin-right: 1rem;
-        line-height: 1.6rem;
-        margin-right: 1rem;
-        line-height: 1.6rem;
+      margin-right: 1rem;
+      line-height: 1.6rem;
+      margin-right: 1rem;
+      line-height: 1.6rem;
+      font-style: normal;
+
+      .text-item {
+        font-weight: 700;
+        border: 1px $color;
         font-style: normal;
+        margin-left: 0.4rem;
+        cursor: pointer;
+        background-color: #f6f6f6;
+        padding: 0.2rem 0.4rem;
 
-        .text-item.active {
-          font-weight: 700;
-          border: 1px $color;
-          font-style: normal;
-          margin-left: 0.4rem;
-          cursor: pointer;
-          background-color: #f6f6f6;
-          padding: 0.2rem 0.4rem;
+        &.active {
+          color: $color;
+        }
 
-          &:hover {
-            color: $color;
-          }
+        &:hover {
+          color: $color;
         }
       }
     }
@@ -179,7 +169,17 @@ $color = #3eaf7c;
       border-width: thin 0 0 0;
       -webkit-transition: inherit;
       transition: inherit;
+      border-color: rgb(234, 236, 239);
+      margin-top: 0.7rem;
+      margin-bottom: 0.7rem;
     }
   }
 }
+
+.what {
+  font-size: 0.8rem;
+  color: rgb(153, 153, 153);
+}
+
+
 </style>

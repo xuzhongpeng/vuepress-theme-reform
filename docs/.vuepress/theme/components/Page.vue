@@ -3,8 +3,10 @@
     <slot name="top"/>
 
     <section class="tags" v-if="this.$site.themeConfig.tags&&tags&&tags.length>0">
+      <!-- tags是this.$page.frontmatter.tags，这是通过vuepress编译markdown文件中的tags生成的标签数组。 -->
       <span class="tagPopup" v-for="tag in tags">
-        <router-link :to="'/tags/?tag='+tag" class="tag">{{tag}}</router-link>
+        <!-- $site.themeConfig.tags是config.js中配置的tags目录 -->
+        <router-link :to="'/'+$site.themeConfig.tags+'/?tag='+tag" class="tag">{{tag}}</router-link>
       </span>
     </section>
 

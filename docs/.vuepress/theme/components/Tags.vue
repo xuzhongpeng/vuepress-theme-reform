@@ -1,16 +1,17 @@
 <template>
   <div>
     <div class="content default"></div>
-    {{tags}}
     <div class="tag">
       <div class="items">
         <span
           v-for="taginfo in tags"
+          :style="{backgroundColor:color()}"
           @click="change(taginfo.tag)"
+          :class="taginfo.tag===tg?'active':''"
         >{{taginfo.tag}}({{taginfo.number}})</span>
       </div>
       <div class="article-list">
-        <Article v-for="tag in info" :tag="tag"/>
+        <Article v-for="tag in info" :tag="tag" :tg="tg" @turnTo="change"/>
       </div>
     </div>
   </div>
@@ -24,11 +25,12 @@ export default {
   },
   data() {
     return {
-      info: []
+      info: [],
+      tg: ""
     };
   },
-  computed: {
-    tags() {
+  computed: {    
+    tags() { //核心代码，整合markdown中tags的数目
       let allTags = [];
       this.$site.pages.forEach(v => {
         if (v.frontmatter.tags) {
@@ -49,16 +51,29 @@ export default {
     }
   },
   methods: {
-    change(tag) {
+    change(tag) { //点击标签下面文章显示对应的内容
+      this.tg = tag;
       this.info = this.$site.pages.filter(v => {
-        let tags=v.frontmatter.tags
+        let tags = v.frontmatter.tags;
         if (tags) {
           return tags.some(v => v === tag);
         }
       });
-    }
+    },
+    color() {// 标签button颜色
+      let colors = [
+        "#3498DB",
+        "#3EAF7C",
+        "#5CBBF6",
+        "#f5A28E",
+        "#f2AC3B",
+        "#FA6551",
+        "#C68CE0"
+      ];
+      return colors[parseInt(Math.random()*colors.length)]
+    },
   },
-  mounted() {
+  mounted() {//当路由?tag='xxx'时能自动跳转到对应内容
     let tag = this.$route.query.tag;
     if (tag) {
       this.change(tag);
@@ -91,7 +106,9 @@ export default {
       box-shadow: 0 1px 0.25rem 0 hsla(0, 0%, 57%, 0.21);
       transition: all 0.3s;
       background-color: red;
-
+      &.active{
+        transform:scale(1.2);
+      }
       &:hover {
         transform: scale(1.2);
       }

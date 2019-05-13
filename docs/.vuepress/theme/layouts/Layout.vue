@@ -31,6 +31,7 @@ toggleSidebar是当屏幕出现在手机端目录隐藏或显示的判断 -->
     </Sidebar>
  <!-- 侧边栏 -->
     <Home v-if="$page.frontmatter.home"/>
+    <MyHome v-if="$page.frontmatter.defaultHome"></MyHome>
   <!-- 如果md文件中有 home:true 就使用该组件 -->
     <Tags v-else-if="tags"/>
     <Page
@@ -56,10 +57,11 @@ import Navbar from '@theme/components/Navbar.vue'
 import Page from '@theme/components/Page.vue'
 import Sidebar from '@parent-theme/components/Sidebar.vue'
 import Tags from '@theme/components/Tags.vue'
-import { resolveSidebarItems } from '@parent-theme/util'
+import MyHome from '@theme/components/MyHome.vue'
+import { resolveSidebarItems } from '@theme/util'
 
 export default {
-  components: { Home, Page, Sidebar, Navbar ,Tags},
+  components: { Home, Page, Sidebar, Navbar ,Tags,MyHome},
 
   data () {
     return {

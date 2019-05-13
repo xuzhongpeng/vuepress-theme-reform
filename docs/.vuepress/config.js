@@ -1,9 +1,9 @@
 module.exports = {
-  title: "永无岛", 
+  title: "JsShou", 
   themeConfig: {
     repo: "https://github.com/xuzhongpeng1",
     editLinkText: "有问题，联系我",
-    tags:true,
+    tags:"tagsaaa",
     markdown: {
       anchor: { permalink: true },
     },
@@ -27,14 +27,14 @@ module.exports = {
       },
       {
         text:"标签云",
-        link:'/tags/',
+        link:'/tagsaaa/',
         tags:true
       },
       { text: "关于我", link: "/about/" }
     ],
     sidebar: {
       "/android/": ["哟西", "android1"],
-      "/blog/frontend/": ["", "手写一个promise"],
+      "/blog/frontend/": true,
       "/blog/computer/": [""],
       "/barrage/": ["aaa"]
     },
