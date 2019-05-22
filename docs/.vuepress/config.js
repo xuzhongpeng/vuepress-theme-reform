@@ -35,7 +35,7 @@ module.exports = {
     sidebar: {
       "/android/": ["哟西", "android1"],
       "/blog/frontend/": true,
-      "/blog/computer/": [""],
+      "/blog/computer/": true,
       "/barrage/": ["aaa"]
     },
     sidebarDepth: 5,

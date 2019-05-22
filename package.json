@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "vuepress dev docs --no-clear-screen"
+    "start": "vuepress dev docs --no-clear-screen",
+    "docs:build": "vuepress build docs"
   },
   "author": "",
   "license": "ISC",

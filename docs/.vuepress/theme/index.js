@@ -1,6 +1,5 @@
-module.exports =()=> {
-  console.log("gggg")
-      return{
-        extend: '@vuepress/theme-default'
-      }
-  }
+module.exports = (site,Vue) => {
+  return {
+    extend: "@vuepress/theme-default"
+  };
+};

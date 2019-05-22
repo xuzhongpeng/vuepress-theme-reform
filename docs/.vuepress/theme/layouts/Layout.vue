@@ -1,6 +1,6 @@
 <template>
   <div
-    class="theme-container"
+    class="theme-container reform"
     :class="pageClasses"
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
