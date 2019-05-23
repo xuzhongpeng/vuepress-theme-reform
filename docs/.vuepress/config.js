@@ -3,14 +3,15 @@ module.exports = {
   themeConfig: {
     repo: "https://github.com/xuzhongpeng1",
     editLinkText: "有问题，联系我",
-    tags:"tagsaaa",
+    tags:"tags",
     markdown: {
       anchor: { permalink: true },
     },
     nav: [
-      { text: "主页", link: "/" },
+      { text: "主页", link: "/" ,icon:'jia'},
       {
         text: "博文",
+        icon:'zhi',
         items: [
           { text: "前端", link: "/blog/frontend/" },
           { text: "计算机基础", link: "/blog/computer/" }
@@ -18,6 +19,7 @@ module.exports = {
       },
       {
         text: "文档",
+        icon:'shuben',
         items: [
           {
             text: "弹幕插件文档",
@@ -27,7 +29,7 @@ module.exports = {
       },
       {
         text:"标签云",
-        link:'/tagsaaa/',
+        link:'/tags/',
         tags:true
       },
       { text: "关于我", link: "/about/" }

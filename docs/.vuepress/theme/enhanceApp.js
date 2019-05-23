@@ -8,10 +8,4 @@ export default ({
   console.log(options);
   console.log(router);
   console.log(siteData);
-  // router.addRoutes([{path:siteData}])
-  window.router=router
-  let tag = siteData.themeConfig.tag||siteData.themeConfig.tags;
-  if (tag != undefined) {
-    router.addRoutes([{path:'/'+tag}])
-  }
 };
