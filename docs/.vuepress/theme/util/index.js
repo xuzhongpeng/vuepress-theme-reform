@@ -128,14 +128,14 @@ export function resolveSidebarItems (page, regularPath, site, localePath) {
   }
 
   const sidebarConfig = localeConfig.sidebar || themeConfig.sidebar
-  for(let [key,value] of Object.entries(sidebarConfig)){//循环侧边栏配置
-    if(value==true){
-      let sider=pages.filter((v,k)=>{
-        return v.path.match(key)
-      })
-      sidebarConfig[key]=sider
-    }
-  }
+  // for(let [key,value] of Object.entries(sidebarConfig)){//循环侧边栏配置
+  //   if(value==true){
+  //     let sider=pages.filter((v,k)=>{
+  //       return v.path.match(key)
+  //     })
+  //     sidebarConfig[key]=sider
+  //   }
+  // }
   if (!sidebarConfig) {
     return []
   } else {

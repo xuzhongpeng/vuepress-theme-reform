@@ -14,7 +14,7 @@ module.exports = {
         icon:'zhi',
         items: [
           { text: "前端", link: "/blog/frontend/" },
-          { text: "计算机基础", link: "/blog/computer/" }
+          { text: "计算机基础", link: "/blog/computer/"}
         ]
       },
       {
@@ -34,12 +34,7 @@ module.exports = {
       },
       { text: "关于我", link: "/about/" }
     ],
-    sidebar: {
-      "/android/": ["哟西", "android1"],
-      "/blog/frontend/": true,
-      "/blog/computer/": true,
-      "/barrage/": ["aaa"]
-    },
+    sidebar:'auto',
     sidebarDepth: 5,
     lastUpdated: "Last Updated"
   }
