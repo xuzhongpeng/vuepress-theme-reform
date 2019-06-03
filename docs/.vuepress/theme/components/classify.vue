@@ -88,7 +88,7 @@ $color = #3eaf7c;
 
 .home {
   padding-top: 5rem;
-
+  width:80%;
   .main-content {
     width: 100%;
     display: flex;
@@ -98,7 +98,7 @@ $color = #3eaf7c;
 
     // background-color max-width:50rem;
     .blog-content {
-      width: 40rem;
+      width: 100%;
 
       .more {
         color: $color;

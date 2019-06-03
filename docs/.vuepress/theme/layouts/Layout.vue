@@ -35,17 +35,18 @@ import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import Tags from "@theme/components/Tags.vue";
 import MyHome from "@theme/components/MyHome.vue";
-import Classify from "@theme/components/classify.vue"
+import Classify from "@theme/components/classify.vue";
 import { resolveSidebarItems } from "@theme/util";
+import  imagesZoom  from "@theme/util/imageScale";
 
 export default {
-  components: { Home, Page, Sidebar, Navbar, Tags, MyHome,Classify },
+  components: { Home, Page, Sidebar, Navbar, Tags, MyHome, Classify },
 
   data() {
     return {
       isSidebarOpen: false,
       tags: false,
-      type:''
+      type: ""
     };
   },
 
@@ -100,9 +101,50 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
+    window.onload = function() {
+      let imgDom = document.getElementsByTagName("img");
+      for (let v of imgDom) {
+        v.style = `
+          cursor: pointer;
+        `;
+        v.addEventListener("click", function(e) {
+          let dom = document.createElement("div");
+          dom.style = `
+            position:fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            width:100%;
+            height:100%;
+            background-color:rgba(46, 46, 46, 0.79);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            cursor: pointer;
+          `;
+
+          let imgDom = document.createElement("img");
+          imgDom.src = this.src;
+          imgDom.style = `
+            width:70%;
+          `;
+          dom.append(imgDom);
+          document.body.append(dom);
+
+          imagesZoom.init({
+            elem: imgDom,
+            parentDom:dom
+          });
+
+          dom.addEventListener("click", function() {
+            document.body.removeChild(dom);
+          });
+        });
+      }
+    };
   },
-  created(){
-     this.checkTags(this.$route.path);
+  created() {
+    this.checkTags(this.$route.path);
   },
   methods: {
     toggleSidebar(to) {
@@ -129,21 +171,24 @@ export default {
       }
     },
     checkTags(path) {
-      let tags = this.$site.themeConfig.nav.filter(v => v.tags);//判断tags
+      let tags = this.$site.themeConfig.nav.filter(v => v.tags); //判断tags
       if (tags[0].link === path) {
         this.tags = true;
-        this.$page.frontmatter.sidebar=false //tags不需要侧标栏
+        this.$page.frontmatter.sidebar = false; //tags不需要侧标栏
       } else {
         this.tags = false;
       }
       //判断是否是分类页面
       let type = this.$page.frontmatter.type;
+
       if (type === "classify") {
         this.type = "classify";
-        this.$page.frontmatter.sidebar=false //tags不需要侧标栏
+        this.$page.frontmatter.sidebar = false; //tags不需要侧标栏
+      } else {
+        this.type = "";
       }
-      if(this.$page.frontmatter.defaultHome){
-        this.$page.frontmatter.sidebar=false //主页不需要侧标栏
+      if (this.$page.frontmatter.defaultHome) {
+        this.$page.frontmatter.sidebar = false; //主页不需要侧标栏
       }
     }
   },

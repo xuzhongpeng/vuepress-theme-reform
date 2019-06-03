@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="my-home">
     <section class="main-content">
       <div class="blog-content">
         <template v-for="(tag,index) in blog" v-if="index<infoLength">
@@ -78,9 +78,9 @@ export default {
 <style lang="stylus" scoped>
 $color = #3eaf7c;
 
-.home {
+.my-home {
   padding-top: 5rem;
-
+  width:100%;
   .main-content {
     width: 100%;
     display: flex;
@@ -90,7 +90,7 @@ $color = #3eaf7c;
 
     // background-color max-width:50rem;
     .blog-content {
-      width: 40rem;
+      width: 80%;
 
       .more {
         color: $color;
