@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-$color = #3eaf7c;
+$color = $accentColor;
 
 .abstract {
   margin-top: 1rem;

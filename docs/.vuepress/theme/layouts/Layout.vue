@@ -37,7 +37,7 @@ import Tags from "@theme/components/Tags.vue";
 import MyHome from "@theme/components/MyHome.vue";
 import Classify from "@theme/components/classify.vue";
 import { resolveSidebarItems } from "@theme/util";
-import  imagesZoom  from "@theme/util/imageScale";
+import imagesZoom from "@theme/util/imageScale";
 
 export default {
   components: { Home, Page, Sidebar, Navbar, Tags, MyHome, Classify },
@@ -130,11 +130,14 @@ export default {
           `;
           dom.append(imgDom);
           document.body.append(dom);
-
-          imagesZoom.init({
-            elem: imgDom,
-            parentDom:dom
-          });
+          try {
+            imagesZoom.init({
+              elem: imgDom,
+              parentDom: dom
+            });
+          } catch (e) {
+            console.log(e);
+          }
 
           dom.addEventListener("click", function() {
             document.body.removeChild(dom);

@@ -4,7 +4,9 @@
     :to="link"
     v-if="!isExternal(link)"
     :exact="exact"
-  ><span :class="'reform-'+item.icon"></span>{{ item.text }}</router-link>
+  >
+  <span v-if='item.icon' :class="'reform-'+item.icon" :style="item.text?'font-size:1rem;':'font-size:1.2rem'"></span>
+  {{ item.text }}</router-link>
   
   <a
     v-else
@@ -12,7 +14,8 @@
     class="nav-link external"
     :target="isMailto(link) || isTel(link) ? null : '_blank'"
     :rel="isMailto(link) || isTel(link) ? null : 'noopener noreferrer'"
-  ><span :class="'reform-'+item.icon"></span>
+  >
+  <!-- <span v-if='item.icon' :class="'reform-'+item.icon"></span> -->
     {{ item.text }}
     <OutboundLink/>
   </a>

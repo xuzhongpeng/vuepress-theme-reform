@@ -29,8 +29,9 @@ export default {
       tg: ""
     };
   },
-  computed: {    
-    tags() { //核心代码，整合markdown中tags的数目
+  computed: {
+    tags() {
+      //核心代码，整合markdown中tags的数目
       let allTags = [];
       this.$site.pages.forEach(v => {
         if (v.frontmatter.tags) {
@@ -41,26 +42,38 @@ export default {
       });
       allTags = allTags.join(",").split(",");
       let flatTags = Array.from(new Set(allTags));
+      let all = [
+        {
+          tag: "全部",
+          number: this.$site.pages.filter(v => v.title).length
+        }
+      ];
       return flatTags.reduce((res, v) => {
         let o = {};
         o.tag = v;
         o.number = allTags.filter(value => value === v).length;
         res.push(o);
         return res;
-      }, []);
+      }, all);
     }
   },
   methods: {
-    change(tag) { //点击标签下面文章显示对应的内容
+    change(tag) {
+      //点击标签下面文章显示对应的内容
       this.tg = tag;
-      this.info = this.$site.pages.filter(v => {
-        let tags = v.frontmatter.tags;
-        if (tags) {
-          return tags.some(v => v === tag);
-        }
-      });
+      if (tag === "全部") {
+        this.info = this.$site.pages.filter(v => v.title);
+      } else {
+        this.info = this.$site.pages.filter(v => {
+          let tags = v.frontmatter.tags;
+          if (tags) {
+            return tags.some(v => v === tag);
+          }
+        });
+      }
     },
-    color() {// 标签button颜色
+    color() {
+      // 标签button颜色
       let colors = [
         "#3498DB",
         "#3EAF7C",
@@ -70,13 +83,16 @@ export default {
         "#FA6551",
         "#C68CE0"
       ];
-      return colors[parseInt(Math.random()*colors.length)]
-    },
+      return colors[parseInt(Math.random() * colors.length)];
+    }
   },
-  mounted() {//当路由?tag='xxx'时能自动跳转到对应内容
+  mounted() {
+    //当路由?tag='xxx'时能自动跳转到对应内容
     let tag = this.$route.query.tag;
     if (tag) {
       this.change(tag);
+    }else{
+      this.change('全部')
     }
   }
 };
@@ -106,9 +122,11 @@ export default {
       box-shadow: 0 1px 0.25rem 0 hsla(0, 0%, 57%, 0.21);
       transition: all 0.3s;
       background-color: red;
-      &.active{
-        transform:scale(1.2);
+
+      &.active {
+        transform: scale(1.2);
       }
+
       &:hover {
         transform: scale(1.2);
       }

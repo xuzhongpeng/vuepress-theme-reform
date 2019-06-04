@@ -36,7 +36,7 @@
         </span>
       </p>
     </div>
-
+    <div id="gitalk-container"></div>
     <slot name="bottom"/>
   </main>
 </template>
@@ -144,6 +144,16 @@ export default {
         path
       );
     }
+  },
+  mounted() {
+    let gitTalkParams = this.$site.themeConfig.gitTalk;
+    if (Gitalk && gitTalkParams) {
+      var gitalk = new Gitalk({
+        ...gitTalkParams,
+        id: gitTalkParams.id || this.$page.title
+      });
+      gitalk.render("gitalk-container");
+    }
   }
 };
 
@@ -190,7 +200,8 @@ function flatten(items, res) {
   margin: 0 auto;
   margin-top: 5rem;
   margin-bottom: -5rem;
-  padding:2rem;
+  padding: 2rem;
+
   .tagPopup {
     margin-right: 0.8rem;
     display: inline-block;
@@ -200,11 +211,11 @@ function flatten(items, res) {
 
     .tag {
       display: inline-block;
-      padding: 0 10px;
-      color: #017E66;
+      padding: 0 13px;
+      color: $accentColor;
       background-color: rgba(1, 126, 102, 0.08);
-      height: 22px;
-      line-height: 22px;
+      height: 25px;
+      line-height: 25px;
       font-weight: normal;
       font-size: 13px;
       text-align: center;
@@ -263,9 +274,9 @@ function flatten(items, res) {
 
 @media (max-width: $MQMobile) {
   .tags {
-    padding:1.5rem;
-    margin-top:4rem;
-    margin-bottom :-4rem;
+    padding: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: -4rem;
   }
 
   .page-edit {
@@ -279,5 +290,10 @@ function flatten(items, res) {
       text-align: left;
     }
   }
+}
+
+#gt-container {
+  width: 90%;
+  margin: 0 auto;
 }
 </style>
