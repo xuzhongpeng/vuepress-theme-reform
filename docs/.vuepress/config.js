@@ -8,7 +8,7 @@ module.exports = {
       // gitalk的主要参数
       clientID: `972da8d2645faa50d52f`,
       clientSecret: `3bb5ccc06745b2933fb030546de6793f4edace6a`,
-      repo: `gitalk-repository`,
+      repo: `xuzhongpeng.github.io`,
       owner: "xuzhongpeng",
       admin: ["JSShou"]
     }, 

@@ -1,3 +1,4 @@
+
 export default ({
   Vue, // VuePress 正在使用的 Vue 构造函数
   options, // 附加到根实例的一些选项
@@ -7,5 +8,5 @@ export default ({
   console.log(Vue);
   console.log(options);
   console.log(router);
-  console.log(siteData);
+  
 };
