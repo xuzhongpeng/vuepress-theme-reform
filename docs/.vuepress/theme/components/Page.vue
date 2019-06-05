@@ -148,9 +148,11 @@ export default {
   mounted() {
     let gitTalkParams = this.$site.themeConfig.gitTalk;
     if (Gitalk && gitTalkParams) {
+      let labelRule=eval(gitTalkParams.labelRule)
+       let id=labelRule(this.$page.title,this.$page.path)
       var gitalk = new Gitalk({
         ...gitTalkParams,
-        id: gitTalkParams.id || this.$page.title
+        id: id|| this.$page.title
       });
       gitalk.render("gitalk-container");
     }

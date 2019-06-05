@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "vuepress dev docs --no-clear-screen",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "info":"vuepress gittalk ./docs"
   },
   "author": "",
   "license": "ISC",
