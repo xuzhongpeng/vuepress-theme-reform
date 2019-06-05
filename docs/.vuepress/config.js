@@ -4,7 +4,7 @@ module.exports = (site) => ({
     repo: "https://github.com/xuzhongpeng",
     editLinkText: "有问题，联系我",
     tags: "tags",
-    gogo:()=>1,
+    gogo: () => 1,
     gitTalk: {
       // gitalk的主要参数
       clientID: `972da8d2645faa50d52f`,
@@ -12,8 +12,8 @@ module.exports = (site) => ({
       repo: `xuzhongpeng.github.io`,
       owner: "xuzhongpeng",
       admin: ["JSShou"],
-      accessToken: '33898388ba2bb909e11368f3d4b4c0ce71491d9d',
-      labelRule:`(title,path)=> {
+      accessToken: '9871ed6a2a0a6d521ad98f7f069f2a8d5b74d7d9 ',
+      labelRule: `(title,path)=> {
         let paths=path.split('/')
         if(paths.length>0){
           let res = paths.pop()
@@ -26,7 +26,7 @@ module.exports = (site) => ({
           return title
         }
       }`,
-      xu:'ggg'
+      xu: 'ggg'
     },
     markdown: {
       anchor: { permalink: true },
@@ -61,7 +61,8 @@ module.exports = (site) => ({
     sidebar: 'auto',
     sidebarDepth: 5,
     lastUpdated: "Last Updated"
-  }, plugins: [
-    require('../../src/vuepress-plugin-gitalk.js')
-  ]
+  },
+  //  plugins: [
+  //   require('../../src/index.js')
+  // ]
 });

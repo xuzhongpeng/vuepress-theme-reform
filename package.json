@@ -6,12 +6,13 @@
   "scripts": {
     "start": "vuepress dev docs --no-clear-screen",
     "docs:build": "vuepress build docs",
-    "info":"vuepress gittalk ./docs"
+    "gitalk": "vuepress gitalk ./docs"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vuepress": "^1.0.0-alpha.48"
+    "vuepress": "^1.0.0-alpha.48",
+    "vuepress-plugin-gitalk": "^0.1.0"
   },
   "dependencies": {}
 }
