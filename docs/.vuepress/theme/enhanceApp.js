@@ -5,8 +5,8 @@ export default ({
   router, // 当前应用的路由实例
   siteData // 站点元数据
 }) => {
-  console.log(Vue);
-  console.log(options);
-  console.log(router);
-  
+  // console.log(Vue);
+  // console.log(options);
+  // console.log(router);
+  // console.log(siteData.pages)
 };

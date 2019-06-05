@@ -1,28 +1,10 @@
 /* eslint-disable */
 // 本js用于web端图片缩放，传参img父级元素elem及能够表示屏幕宽度的元素parentDom
-var document = window.document,
-  support = {
-    transform3d: "WebKitCSSMatrix" in window && "m11" in new WebKitCSSMatrix(),
-    touch: "ontouchstart" in window
-  };
 
-function getTranslate(x, y) {
-  var distX = x,
-    distY = y;
-  return support.transform3d
-    ? "translate3d(" + distX + "px, " + distY + "px, 0)"
-    : "translate(" + distX + "px, " + distY + "px)";
-}
 
-function getPage(event, page) {
-  return support.touch ? event.changedTouches[0][page] : event[page];
-}
-
-// var ImagesZoom = function() {};
-
-class ImagesZoom{
+class ImagesZoom {
   // 给初始化数据
-  init (param) {
+  init(param) {
     var isSupportTouch = "ontouchend" in document ? true : false;
     if (!isSupportTouch) {
       throw new Error("不支持tachend事件");
@@ -31,8 +13,8 @@ class ImagesZoom{
       params = param || {};
     self.elem = params.elem;
     var imgList = self.elem,
-    zoomMask =params.parentDom,
-    zoomImg = self.elem
+      zoomMask = params.parentDom,
+      zoomImg = self.elem
     self.element = imgList;
     self.buffMove = 3; //缓冲系数
     self.buffScale = 2; //放大系数
@@ -55,7 +37,7 @@ class ImagesZoom{
     // }, false);
     // }
   }
-  addEventStart (param) {
+  addEventStart(param) {
     var self = this,
       params = param || {};
 
@@ -74,7 +56,7 @@ class ImagesZoom{
 
     self.element.addEventListener(
       "touchstart",
-      function(e) {
+      function (e) {
         // e.stopPropagation();
         // e.preventDefault();
         self._touchstart(e);
@@ -83,14 +65,14 @@ class ImagesZoom{
     );
     self.element.addEventListener(
       "touchmove",
-      function(e) {
+      function (e) {
         self._touchmove(e);
       },
       false
     );
     self.element.addEventListener(
       "touchend",
-      function(e) {
+      function (e) {
         // e.stopPropagation();
         // e.preventDefault();
         self._touchend(e);
@@ -99,21 +81,21 @@ class ImagesZoom{
     );
   }
   // 重置坐标数据
-  _destroy () {
+  _destroy() {
     this.distX = 0;
     this.distY = 0;
     this.newX = 0;
     this.newY = 0;
   }
   // 更新图片信息
-  _changeData () {
+  _changeData() {
     this.mapX = this.element.offsetWidth; //图片宽度
     this.mapY = this.element.offsetHeight; //图片高度
     // this.outDistY = (this.mapY - this.wrapY)/2; //当图片高度超过屏幕的高度时候。图片是垂直居中的，这时移动有个高度做为缓冲带
     this.width = this.mapX - this.wrapX; //图片的宽度减去可视区域的宽度
     this.height = this.mapY - this.wrapY; //图片的高度减去可视区域的高度
   }
-  _touchstart (e) {
+  _touchstart(e) {
     var self = this;
 
     // e.preventDefault();
@@ -124,8 +106,8 @@ class ImagesZoom{
 
     if (touchTarget === 1) {
       // 获取开始坐标
-      self.basePageX = getPage(e, "pageX");
-      self.basePageY = getPage(e, "pageY");
+      self.basePageX = this.getPage(e, "pageX");
+      self.basePageY = this.getPage(e, "pageY");
 
       self.finger = false;
     } else {
@@ -136,10 +118,10 @@ class ImagesZoom{
       self.startFingerY = self.getTouchDist(e).y;
     }
 
-    console.log("pageX: " + getPage(e, "pageX"));
-    console.log("pageY: " + getPage(e, "pageY"));
+    // console.log("pageX: " + getPage(e, "pageX"));
+    // console.log("pageY: " + getPage(e, "pageY"));
   }
-  _touchmove (e) {
+  _touchmove(e) {
     var self = this;
 
     e.preventDefault();
@@ -155,10 +137,10 @@ class ImagesZoom{
       self._zoom(e);
     }
   }
-  _touchend (e) {
-     this.newX = 0,
-     this.newY = 0;
-      
+  _touchend(e) {
+    this.newX = 0,
+      this.newY = 0;
+
     if (this.wrapX < this.element.offsetWidth) {
       this.newX = (this.wrapX - this.element.offsetWidth) / 2;
     }
@@ -167,10 +149,10 @@ class ImagesZoom{
     }
     this.refresh(0 + this.newX, 0 + this.newY, "0.2s", "ease-in-out");
   }
-  _move (e) {
+  _move(e) {
     var self = this,
-      pageX = getPage(e, "pageX"), //获取移动坐标
-      pageY = getPage(e, "pageY");
+      pageX = this.getPage(e, "pageX"), //获取移动坐标
+      pageY = this.getPage(e, "pageY");
     // 获得移动距离
     self.distX = pageX - self.basePageX + self.newX;
     self.distY = pageY - self.basePageY + self.newY;
@@ -178,7 +160,7 @@ class ImagesZoom{
     self.finger = false;
   }
   // 图片缩放
-  _zoom (e) {
+  _zoom(e) {
     var self = this;
     // e.preventDefault();
     // e.stopPropagation();
@@ -208,7 +190,7 @@ class ImagesZoom{
     self.finger = true;
   }
   // 移动坐标
-  movePos () {
+  movePos() {
     var self = this;
 
     if (self.height < 0) {
@@ -239,7 +221,7 @@ class ImagesZoom{
     self.refresh(self.moveX, self.moveY, "0s", "ease");
   }
   // 重置数据
-  reset () {
+  reset() {
     var self = this,
       hideTime = ".2s";
     if (self.height < 0) {
@@ -251,14 +233,14 @@ class ImagesZoom{
     self.refresh(self.newX, self.newY, hideTime, "ease-in-out");
   }
   // 执行图片移动
-  refresh (x, y, timer, type) {
+  refresh(x, y, timer, type) {
     this.element.style.webkitTransitionProperty = "-webkit-transform";
     this.element.style.webkitTransitionDuration = timer;
     this.element.style.webkitTransitionTimingFunction = type;
-    this.element.style.webkitTransform = getTranslate(x, y);
+    this.element.style.webkitTransform = this.getTranslate(x, y);
   }
   // 获取多点触控
-  getTouchDist (e) {
+  getTouchDist(e) {
     var x1 = 0,
       y1 = 0,
       x2 = 0,
@@ -292,9 +274,27 @@ class ImagesZoom{
     };
     return result;
   }
-  eventStop (e) {
+  eventStop(e) {
     e.preventDefault();
     e.stopPropagation();
+  }
+  support() {
+    return {
+      transform3d: "WebKitCSSMatrix" in window && "m11" in new WebKitCSSMatrix(),
+      touch: "ontouchstart" in window
+    }
+  };
+
+  getTranslate(x, y) {
+    var distX = x,
+      distY = y;
+    return this.support().transform3d
+      ? "translate3d(" + distX + "px, " + distY + "px, 0)"
+      : "translate(" + distX + "px, " + distY + "px)";
+  }
+
+  getPage(event, page) {
+    return this.support().touch ? event.changedTouches[0][page] : event[page];
   }
 };
 const imagesZoom = new ImagesZoom();

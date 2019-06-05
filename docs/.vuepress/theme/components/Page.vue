@@ -292,7 +292,7 @@ function flatten(items, res) {
   }
 }
 
-#gt-container {
+#gitalk-container {
   width: 90%;
   margin: 0 auto;
 }
