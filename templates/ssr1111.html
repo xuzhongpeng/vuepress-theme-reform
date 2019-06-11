@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  {{{ userHeadTags }}}
+  {{{ pageMeta }}}
+  {{{ renderResourceHints() }}}
+  {{{ renderStyles() }}}
+
+  <link href="//at.alicdn.com/t/font_1205962_pm3ws52wifb.css" rel="stylesheet" />
+  <!-- Link Gitalk 的支持文件  -->
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> -->
+</head>
+
+<body>
+  <!--vue-ssr-outlet-->
+  {{{ renderScripts() }}}
+</body>
+
+</html>

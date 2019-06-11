@@ -1,4 +1,0 @@
----
-defaultHome: true
-
----
