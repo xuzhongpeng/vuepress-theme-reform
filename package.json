@@ -1,6 +1,6 @@
 {
   "name": "vuepress-theme-reform",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "a theme for vuepress",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,20 @@
   "private":false,
   "dependencies": {
     "gitalk":"^1.5.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuzhongpeng/vuepress-theme-reform.git"
+  },
+  "keywords": [
+    "vuepress",
+    "theme",
+    "gittalk"
+  ],
+  "author": "JSShou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xuzhongpeng/vuepress-theme-reform/issues"
+  },
+  "homepage": "https://github.com/xuzhongpeng/vuepress-theme-reform#readme"
 }
