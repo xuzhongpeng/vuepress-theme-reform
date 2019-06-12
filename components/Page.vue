@@ -43,11 +43,10 @@
 
 <script>
 import { resolvePage, outboundRE, endingSlashRE } from "@parent-theme/util";
-import Gitalk from 'gitalk'
-import 'gitalk/dist/gitalk.css';
+import Gitalk from "gitalk";
+import "gitalk/dist/gitalk.css";
 export default {
   props: ["sidebarItems"],
-
   computed: {
     lastUpdated() {
       return this.$page.lastUpdated;
@@ -144,18 +143,28 @@ export default {
         (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
         path
       );
+    },
+    initGitalk() {
+      let a = document.getElementById("gitalk-container");
+      if (a && a.children.length > 0) a.innerHTML = "";
+      let gitTalkParams = this.$site.themeConfig.gitalk;
+      if (Gitalk && gitTalkParams) {
+        let labelRule = eval(gitTalkParams.labelRule);
+        let id = labelRule(this.$page.title, this.$page.path);
+        var gitalk = new Gitalk({
+          ...gitTalkParams,
+          id: id || this.$page.title
+        });
+        gitalk.render("gitalk-container");
+      }
     }
   },
   mounted() {
-    let gitTalkParams = this.$site.themeConfig.gitalk;
-    if (Gitalk && gitTalkParams) {
-      let labelRule=eval(gitTalkParams.labelRule)
-       let id=labelRule(this.$page.title,this.$page.path)
-      var gitalk = new Gitalk({
-        ...gitTalkParams,
-        id: id|| this.$page.title
-      });
-      gitalk.render("gitalk-container");
+    this.initGitalk();
+  },
+  watch: {
+    $route() {
+      this.initGitalk();
     }
   }
 };
@@ -191,7 +200,6 @@ function flatten(items, res) {
 </script>
 
 <style lang="stylus" scoped>
-
 @require '../styles/wrapper.styl';
 
 .page {
