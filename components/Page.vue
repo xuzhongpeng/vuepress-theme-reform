@@ -200,7 +200,7 @@ function flatten(items, res) {
 }
 
 .tags {
-  max-width: 740px;
+  max-width: 60rem;
   margin: 0 auto;
   margin-top: 5rem;
   margin-bottom: -5rem;

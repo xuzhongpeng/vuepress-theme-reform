@@ -1,6 +1,6 @@
 {
   "name": "vuepress-theme-reform",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "a theme for vuepress",
   "main": "index.js",
   "scripts": {
