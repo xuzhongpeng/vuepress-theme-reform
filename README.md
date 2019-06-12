@@ -6,6 +6,10 @@ tags:
 ---
 ## 介绍
 
+项目地址：[vuepress-theme-reform](https://github.com/xuzhongpeng/vuepress-theme-reform)
+
+效果展示： [我的博客](http://JSShou.cn)
+
 此主题继承至vuepress的默认主题，添加功能有标签页改造，主页改造，博客分类及展示，gitalk集成及gitalk自动化配置
 ## 使用
 
@@ -163,3 +167,7 @@ npm run gitalk
 xxx 创建失败
 ```
 报这个错误大概率是accessToken失效了，这时需要重新到github的Settings/Developer settings/Personal access tokens下创建获取并替换
+
+项目地址：[vuepress-theme-reform](https://github.com/xuzhongpeng/vuepress-theme-reform)
+
+效果展示： [我的博客](http://JSShou.cn)
