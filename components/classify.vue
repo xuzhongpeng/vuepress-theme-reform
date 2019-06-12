@@ -39,7 +39,12 @@ export default {
         }
       });
       go = go.sort((pre, next) => {
-        return new Date(pre.lastUpdated) > new Date(next.lastUpdated) ? -1 : 1;
+        if (pre.lastUpdated === undefined) return 1;
+        if (next.lastUpdated === undefined) return -1;
+        return (
+          new Date(next.lastUpdated).getTime() -
+          new Date(pre.lastUpdated).getTime()
+        );
       });
       this.blog = go;
       if (this.blog.length > defaultLength) {
@@ -118,6 +123,10 @@ $color = #3eaf7c;
 @media (max-width: 719px) {
   .home .main-content .blog-content {
     width: 100%;
+  }
+
+  .home {
+    width: 90%;
   }
 }
 </style>

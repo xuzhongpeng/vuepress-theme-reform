@@ -71,6 +71,14 @@ export default {
           }
         });
       }
+      this.info = this.info.sort((pre, next) => {
+        if (pre.lastUpdated === undefined) return 1;
+        if (next.lastUpdated === undefined) return -1;
+        return (
+          new Date(next.lastUpdated).getTime() -
+          new Date(pre.lastUpdated).getTime()
+        );
+      });
     },
     color() {
       // 标签button颜色
@@ -91,8 +99,8 @@ export default {
     let tag = this.$route.query.tag;
     if (tag) {
       this.change(tag);
-    }else{
-      this.change('全部')
+    } else {
+      this.change("全部");
     }
   }
 };
@@ -102,7 +110,7 @@ export default {
 .tag {
   max-width: 46.5rem;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 1rem 0.5rem;
 
   .items {
     margin-bottom: 2rem;
