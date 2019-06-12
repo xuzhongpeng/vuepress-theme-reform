@@ -108,7 +108,7 @@ export default {
 
 <style lang='stylus' scoped>
 .tag {
-  max-width: 46.5rem;
+  max-width: 60rem;
   margin: 0 auto;
   padding: 1rem 0.5rem;
 
