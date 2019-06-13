@@ -10,7 +10,7 @@
       </span>
     </section>
 
-    <Content class='content theme-default-content'/>
+    <Content class="content theme-default-content"/>
 
     <footer class="page-edit">
       <div class="edit-link" v-if="editLink">
@@ -169,7 +169,7 @@ export default {
         }
       }
     },
-    initImgZoom(){
+    initImgZoom() {
       let imgDom = document.getElementsByTagName("img");
       for (let v of imgDom) {
         v.style = `
@@ -258,9 +258,9 @@ function flatten(items, res) {
 .page {
   padding-bottom: 2rem;
   display: block;
-  max-width:55rem;
-  margin:0 auto;
-  margin-top:5rem;
+  max-width: 55rem;
+  margin: 0 auto;
+  margin-top: 5rem;
   // width:60%;
 }
 
@@ -270,8 +270,8 @@ function flatten(items, res) {
   margin-top: 5rem;
   margin-bottom: -4rem;
   padding: 2rem;
-  // padding-left:0;
 
+  // padding-left:0;
   .tagPopup {
     margin-right: 0.8rem;
     display: inline-block;
@@ -344,9 +344,9 @@ function flatten(items, res) {
 
 @media (max-width: $MQMobile) {
   .tags {
-    width:100%;
+    width: 100%;
     padding: 1rem;
-    padding-left:1.5rem;
+    padding-left: 1.5rem;
     margin-bottom: -4rem;
   }
 
