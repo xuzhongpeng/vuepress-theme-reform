@@ -10,7 +10,7 @@
       </span>
     </section>
 
-    <Content/>
+    <Content class='content theme-default-content'/>
 
     <footer class="page-edit">
       <div class="edit-link" v-if="editLink">
@@ -44,6 +44,7 @@
 <script>
 import { resolvePage, outboundRE, endingSlashRE } from "@parent-theme/util";
 import Gitalk from "gitalk";
+import imagesZoom from "@theme/util/imageScale";
 import "gitalk/dist/gitalk.css";
 export default {
   props: ["sidebarItems"],
@@ -152,6 +153,7 @@ export default {
     initGitalk() {
       let path = this.$route.path;
       if (path !== this.path) {
+        this.initImgZoom();
         this.path = path;
         let a = document.getElementById("gitalk-container");
         if (a && a.children.length > 0) a.innerHTML = "";
@@ -166,15 +168,57 @@ export default {
           gitalk.render("gitalk-container");
         }
       }
+    },
+    initImgZoom(){
+      let imgDom = document.getElementsByTagName("img");
+      for (let v of imgDom) {
+        v.style = `
+          cursor: zoom-in;
+        `;
+        v.addEventListener("click", function(e) {
+          let dom = document.createElement("div");
+          dom.style = `
+            position:fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            width:100%;
+            height:100%;
+            background-color:rgba(46, 46, 46, 0.79);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            cursor: zoom-out;
+          `;
+
+          let imgDom = document.createElement("img");
+          imgDom.src = this.src;
+          imgDom.style = `
+            width:70%;
+          `;
+          dom.append(imgDom);
+          document.body.append(dom);
+          try {
+            imagesZoom.init({
+              elem: imgDom,
+              parentDom: dom
+            });
+          } catch (e) {
+            console.log(e);
+          }
+
+          dom.addEventListener("click", function() {
+            document.body.removeChild(dom);
+          });
+        });
+      }
     }
   },
   mounted() {
     this.initGitalk();
   },
-  watch: {
-    $route() {
-      this.initGitalk();
-    }
+  updated() {
+    this.initGitalk();
   }
 };
 
@@ -214,14 +258,19 @@ function flatten(items, res) {
 .page {
   padding-bottom: 2rem;
   display: block;
+  max-width:55rem;
+  margin:0 auto;
+  margin-top:5rem;
+  // width:60%;
 }
 
 .tags {
-  max-width: 60rem;
+  max-width: 55rem;
   margin: 0 auto;
   margin-top: 5rem;
-  margin-bottom: -5rem;
+  margin-bottom: -4rem;
   padding: 2rem;
+  // padding-left:0;
 
   .tagPopup {
     margin-right: 0.8rem;
@@ -295,8 +344,9 @@ function flatten(items, res) {
 
 @media (max-width: $MQMobile) {
   .tags {
-    padding: 1.5rem;
-    margin-top: 4rem;
+    width:100%;
+    padding: 1rem;
+    padding-left:1.5rem;
     margin-bottom: -4rem;
   }
 
@@ -314,7 +364,7 @@ function flatten(items, res) {
 }
 
 #gitalk-container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 </style>

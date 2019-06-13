@@ -37,7 +37,7 @@ import Tags from "@theme/components/Tags.vue";
 import MyHome from "@theme/components/MyHome.vue";
 import Classify from "@theme/components/classify.vue";
 import { resolveSidebarItems } from "@theme/util";
-import imagesZoom from "@theme/util/imageScale";
+
 import '@theme/styles/iconfont/iconfont.css';
 export default {
   components: { Home, Page, Sidebar, Navbar, Tags, MyHome, Classify },
@@ -101,50 +101,7 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
-    window.onload = function() {
-      let imgDom = document.getElementsByTagName("img");
-      for (let v of imgDom) {
-        v.style = `
-          cursor: pointer;
-        `;
-        v.addEventListener("click", function(e) {
-          let dom = document.createElement("div");
-          dom.style = `
-            position:fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            width:100%;
-            height:100%;
-            background-color:rgba(46, 46, 46, 0.79);
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            cursor: pointer;
-          `;
-
-          let imgDom = document.createElement("img");
-          imgDom.src = this.src;
-          imgDom.style = `
-            width:70%;
-          `;
-          dom.append(imgDom);
-          document.body.append(dom);
-          try {
-            imagesZoom.init({
-              elem: imgDom,
-              parentDom: dom
-            });
-          } catch (e) {
-            console.log(e);
-          }
-
-          dom.addEventListener("click", function() {
-            document.body.removeChild(dom);
-          });
-        });
-      }
-    };
+    
   },
   created() {
     this.checkTags(this.$route.path);

@@ -2,6 +2,8 @@
 module.exports = (site, Vue) => {
   return {
     extend: "@vuepress/theme-default",
-    plugins: ['gitalk']
+    plugins: [
+      ['gitalk']
+    ]
   };
 };
