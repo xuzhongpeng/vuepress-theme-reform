@@ -156,6 +156,16 @@ npm run gitalk
 ```
 即可输出自动化初始化评论的结果
 
+## 最新Google Analytics插件集成
+
+vuepress提供了@vuepress/plugin-google-analytics,我使用过后没有效果，去google-analytics网站上发现当前的插入代码已有变化，所以自己内置了插件，只需在config.js中配置即可。
+
+```
+{
+  ga:'XXXX'
+}
+```
+
 ## 错误处理
 如果自动化创建评论时输出
 ```
