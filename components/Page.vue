@@ -364,7 +364,9 @@ function flatten(items, res) {
 }
 
 #gitalk-container {
-  width: 100%;
+  // width: 100%;
   margin: 0 auto;
+  padding: 2rem 2.5rem;
 }
+
 </style>
