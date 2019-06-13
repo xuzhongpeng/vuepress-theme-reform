@@ -47,6 +47,11 @@ import Gitalk from "gitalk";
 import "gitalk/dist/gitalk.css";
 export default {
   props: ["sidebarItems"],
+  data() {
+    return {
+      path: ""
+    };
+  },
   computed: {
     lastUpdated() {
       return this.$page.lastUpdated;
@@ -145,17 +150,21 @@ export default {
       );
     },
     initGitalk() {
-      let a = document.getElementById("gitalk-container");
-      if (a && a.children.length > 0) a.innerHTML = "";
-      let gitTalkParams = this.$site.themeConfig.gitalk;
-      if (Gitalk && gitTalkParams) {
-        let labelRule = eval(gitTalkParams.labelRule);
-        let id = labelRule(this.$page.title, this.$page.path);
-        var gitalk = new Gitalk({
-          ...gitTalkParams,
-          id: id || this.$page.title
-        });
-        gitalk.render("gitalk-container");
+      let path = this.$route.path;
+      if (path !== this.path) {
+        this.path = path;
+        let a = document.getElementById("gitalk-container");
+        if (a && a.children.length > 0) a.innerHTML = "";
+        let gitTalkParams = this.$site.themeConfig.gitalk;
+        if (Gitalk && gitTalkParams) {
+          let labelRule = eval(gitTalkParams.labelRule);
+          let id = labelRule(this.$page.title, this.$page.path);
+          var gitalk = new Gitalk({
+            ...gitTalkParams,
+            id: id || this.$page.title
+          });
+          gitalk.render("gitalk-container");
+        }
       }
     }
   },

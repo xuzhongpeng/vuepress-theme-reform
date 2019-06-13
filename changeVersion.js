@@ -14,8 +14,14 @@ let list = config.match(/"version": ?"([0-9\.]+)"/);
 
 if (!list || list.length < 1) return;
 let v_list = list[1].split('.');
+var a = 0
+for (let i = 0; i < v_list.length; i++) {
+  if (v_list[i] < 10) {
+    a = i
+  }
+}
 try {
-  v_list[v_list.length - 1]++;
+  v_list[a]++;
 } catch (e) {
   return;
 }
