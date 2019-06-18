@@ -15,31 +15,33 @@ export default ({
       a = s.createElement(o)
       m = s.getElementsByTagName(o)[0]
       a.async = 1
-      a.src = g+"?id="+GA_ID
+      a.src = g + "?id=" + GA_ID
       m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga')
+    // window.dataLayer = window.dataLayer || [];
+    // function gtag() {
+    //   if (dataLayer.indexOf(arguments) === -1) {
+    //     dataLayer.push(arguments);
+    //   }
+    // }
+    // gtag('js', new Date());
+    // gtag('config', GA_ID);
 
-    // ga('create', GA_ID, 'auto')
-    // ga('set', 'anonymizeIp', true)
-    // ga('send', 'pageview')
-    
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', GA_ID);
+    ga('create', GA_ID, 'auto');
+    ga('send', 'pageview');
 
     router.afterEach(function (to) {
-      // ga('set', 'page', to.fullPath)
-      // ga('send', 'pageview')
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config',GA_ID);
+      ga('set', 'page', to.path);
+      ga('send', 'pageview');
     })
   }
 };
-// < !--Global site tag(gtag.js) - Google Analytics-- >
+// <!--Global site tag(gtag.js) - Google Analytics-- >
 //   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139922393-1"></script>
 //   <script>
-   
+//     window.dataLayer = window.dataLayer || [];
+//   function gtag(){dataLayer.push(arguments); }
+//     gtag('js', new Date());
+
+//     gtag('config', 'UA-139922393-1');
 // </script>
