@@ -1,6 +1,6 @@
 <template>
   <main class="page">
-    <slot name="top"/>
+    <slot name="top" />
 
     <section class="tags" v-if="this.$site.themeConfig.tags&&tags&&tags.length>0">
       <!-- tags是this.$page.frontmatter.tags，这是通过vuepress编译markdown文件中的tags生成的标签数组。 -->
@@ -10,12 +10,12 @@
       </span>
     </section>
 
-    <Content class="content theme-default-content"/>
+    <Content class="content theme-default-content" />
 
     <footer class="page-edit">
       <div class="edit-link" v-if="editLink">
         <a :href="editLink" target="_blank" rel="noopener noreferrer">{{ editLinkText }}</a>
-        <OutboundLink/>
+        <OutboundLink />
       </div>
 
       <div class="last-updated" v-if="lastUpdated">
@@ -37,7 +37,7 @@
       </p>
     </div>
     <div id="gitalk-container"></div>
-    <slot name="bottom"/>
+    <slot name="bottom" />
   </main>
 </template>
 
@@ -151,8 +151,9 @@ export default {
       );
     },
     initGitalk() {
+      const { frontmatter } = this.$page;
       let path = this.$route.path;
-      if (path !== this.path) {
+      if (path !== this.path && frontmatter.gitTalk != false) {
         this.initImgZoom();
         this.path = path;
         let a = document.getElementById("gitalk-container");
@@ -172,7 +173,9 @@ export default {
     initImgZoom() {
       let imgDom = document.getElementsByTagName("img");
       for (let v of imgDom) {
-        v.style = `
+        v.style =
+          v.getAttribute("style") +
+          `
           cursor: zoom-in;
         `;
         v.addEventListener("click", function(e) {
@@ -368,5 +371,4 @@ function flatten(items, res) {
   margin: 0 auto;
   padding: 2rem 2.5rem;
 }
-
 </style>
