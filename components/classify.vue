@@ -39,8 +39,8 @@ export default {
         }
       });
       go = go.sort((pre, next) => {
-        if (pre.lastUpdated === undefined) return 1;
-        if (next.lastUpdated === undefined) return -1;
+        if (pre.lastUpdated === undefined) return -1;
+        if (next.lastUpdated === undefined) return 1;
         return (
           new Date(next.lastUpdated).getTime() -
           new Date(pre.lastUpdated).getTime()
@@ -97,7 +97,8 @@ $color = #3eaf7c;
 .classify {
   padding-top: 5rem;
   max-width: 60rem;
-  margin:0 auto;
+  margin: 0 auto;
+
   .main-content {
     width: 100%;
     display: flex;

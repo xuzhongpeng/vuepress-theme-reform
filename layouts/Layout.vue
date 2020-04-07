@@ -5,24 +5,24 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar"/>
+    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
     <!-- 这块代码是主题的头部，shouldShowNavbar是判断是否显示头部
     toggleSidebar是当屏幕出现在手机端目录隐藏或显示的判断-->
     <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
     <!-- 在移动端时点击内容部分目录会隐藏 -->
     <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
-      <slot name="sidebar-top" slot="top"/>
-      <slot name="sidebar-bottom" slot="bottom"/>
+      <slot name="sidebar-top" slot="top" />
+      <slot name="sidebar-bottom" slot="bottom" />
     </Sidebar>
     <!-- 侧边栏 -->
-    <Home v-if="$page.frontmatter.home"/>
+    <Home v-if="$page.frontmatter.home" />
     <MyHome v-else-if="$page.frontmatter.defaultHome"></MyHome>
     <!-- 如果md文件中有 home:true 就使用该组件 -->
-    <Tags v-else-if="tags"/>
+    <Tags v-else-if="tags" />
     <Classify v-else-if="type==='classify'"></Classify>
     <Page v-else :sidebar-items="sidebarItems">
-      <slot name="page-top" slot="top"/>
-      <slot name="page-bottom" slot="bottom"/>
+      <slot name="page-top" slot="top" />
+      <slot name="page-bottom" slot="bottom" />
     </Page>
     <!-- 一般的md文件使用的组件 -->
   </div>
@@ -38,7 +38,7 @@ import MyHome from "@theme/components/MyHome.vue";
 import Classify from "@theme/components/classify.vue";
 import { resolveSidebarItems } from "@theme/util";
 
-import '@theme/styles/iconfont/iconfont.css';
+import "@theme/styles/iconfont/iconfont.css";
 export default {
   components: { Home, Page, Sidebar, Navbar, Tags, MyHome, Classify },
 
@@ -101,7 +101,6 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
-    
   },
   created() {
     this.checkTags(this.$route.path);

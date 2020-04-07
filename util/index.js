@@ -3,32 +3,32 @@ export const extRE = /\.(md|html)$/
 export const endingSlashRE = /\/$/
 export const outboundRE = /^(https?:|mailto:|tel:)/
 
-export function normalize (path) {
+export function normalize(path) {
   return decodeURI(path)
     .replace(hashRE, '')
     .replace(extRE, '')
 }
 
-export function getHash (path) {
+export function getHash(path) {
   const match = path.match(hashRE)
   if (match) {
     return match[0]
   }
 }
 
-export function isExternal (path) {
+export function isExternal(path) {
   return outboundRE.test(path)
 }
 
-export function isMailto (path) {
+export function isMailto(path) {
   return /^mailto:/.test(path)
 }
 
-export function isTel (path) {
+export function isTel(path) {
   return /^tel:/.test(path)
 }
 
-export function ensureExt (path) {
+export function ensureExt(path) {
   if (isExternal(path)) {
     return path
   }
@@ -42,7 +42,7 @@ export function ensureExt (path) {
   return normalized + '.html' + hash
 }
 
-export function isActive (route, path) {
+export function isActive(route, path) {
   const routeHash = route.hash
   const linkHash = getHash(path)
   if (linkHash && routeHash !== linkHash) {
@@ -53,7 +53,7 @@ export function isActive (route, path) {
   return routePath === pagePath
 }
 
-export function resolvePage (pages, rawPath, base) {
+export function resolvePage(pages, rawPath, base) {
   if (base) {
     rawPath = resolvePath(rawPath, base)
   }
@@ -70,7 +70,7 @@ export function resolvePage (pages, rawPath, base) {
   return {}
 }
 
-function resolvePath (relative, base, append) {
+function resolvePath(relative, base, append) {
   const firstChar = relative.charAt(0)
   if (firstChar === '/') {
     return relative
@@ -115,34 +115,52 @@ function resolvePath (relative, base, append) {
  * @param { string } localePath
  * @returns { SidebarGroup }
  */
-export function resolveSidebarItems (page, regularPath, site, localePath) {
+export function resolveSidebarItems(page, regularPath, site, localePath) {
   const { pages, themeConfig } = site
 
   const localeConfig = localePath && themeConfig.locales
     ? themeConfig.locales[localePath] || themeConfig
     : themeConfig
-
   const pageSidebarConfig = page.frontmatter.sidebar || localeConfig.sidebar || themeConfig.sidebar
   if (pageSidebarConfig === 'auto') {
     return resolveHeaders(page)
   }
-
   const sidebarConfig = localeConfig.sidebar || themeConfig.sidebar
-  // for(let [key,value] of Object.entries(sidebarConfig)){//循环侧边栏配置
-  //   if(value==true){
-  //     let sider=pages.filter((v,k)=>{
-  //       return v.path.match(key)
-  //     })
-  //     sidebarConfig[key]=sider
+  for (let [key, value] of Object.entries(sidebarConfig)) {//循环侧边栏配置
+    if (value == true) {
+      let sider = pages.filter((v, k) => {
+        return v.path.match(key)
+      })
+      if (Array.isArray(sider)) {
+        sider.sort((a, b) => {
+          if (a.path.indexOf('_') != -1 && b.path.indexOf('_') != -1) {
+            // var a_t = a.relativePath//等待开发
+            return parseInt(a.path.split('_')[1]) - parseInt(b.path.split('_')[1])
+          }
+          return 0;
+        });
+      }
+      sidebarConfig[key] = sider
+    }
+  }
+  /***为了配置 侧边栏多个文章在一个里面 */
+  // let sidebar
+  // for (let [key, value] of Object.entries(sidebarConfig)) {
+  //   if (page.path.match(key)) {
+  //     sidebar = [value];
   //   }
   // }
+  // if (!sidebar) {
+  //   return resolveHeaders(page)
+  // }
+  /***为了配置end */
   if (!sidebarConfig) {
     return []
   } else {
     const { base, config } = resolveMatchingConfig(regularPath, sidebarConfig)
     return config
       ? config.map(item => resolveItem(item, pages, base))
-      : []
+      : resolveHeaders(page)
   }
 }
 
@@ -150,7 +168,7 @@ export function resolveSidebarItems (page, regularPath, site, localePath) {
  * @param { Page } page
  * @returns { SidebarGroup }
  */
-function resolveHeaders (page) {
+function resolveHeaders(page) {
   const headers = groupHeaders(page.headers || [])
   return [{
     type: 'group',
@@ -167,7 +185,7 @@ function resolveHeaders (page) {
   }]
 }
 
-export function groupHeaders (headers) {
+export function groupHeaders(headers) {
   // group h3s under h2
   headers = headers.map(h => Object.assign({}, h))
   let lastH2
@@ -181,7 +199,7 @@ export function groupHeaders (headers) {
   return headers.filter(h => h.level === 2)
 }
 
-export function resolveNavLinkItem (linkItem) {
+export function resolveNavLinkItem(linkItem) {
   return Object.assign(linkItem, {
     type: linkItem.items && linkItem.items.length ? 'links' : 'link'
   })
@@ -192,7 +210,7 @@ export function resolveNavLinkItem (linkItem) {
  * @param { Array<string|string[]> | Array<SidebarGroup> | [link: string]: SidebarConfig } config
  * @returns { base: string, config: SidebarConfig }
  */
-export function resolveMatchingConfig (regularPath, config) {
+export function resolveMatchingConfig(regularPath, config) {
   if (Array.isArray(config)) {
     return {
       base: '/',
@@ -210,13 +228,13 @@ export function resolveMatchingConfig (regularPath, config) {
   return {}
 }
 
-function ensureEndingSlash (path) {
+function ensureEndingSlash(path) {
   return /(\.html|\/)$/.test(path)
     ? path
     : path + '/'
 }
 
-function resolveItem (item, pages, base, groupDepth = 1) {
+function resolveItem(item, pages, base, groupDepth = 1) {
   if (typeof item === 'string') {
     return resolvePage(pages, item, base)
   } else if (Array.isArray(item)) {

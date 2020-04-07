@@ -11,7 +11,7 @@
         >{{taginfo.tag}}({{taginfo.number}})</span>
       </div>
       <div class="article-list">
-        <Article v-for="tag in info" :tag="tag" :tg="tg" @turnTo="change"/>
+        <Article v-for="tag in infos" :tag="tag" :tg="tg" @turnTo="change" />
       </div>
     </div>
   </div>
@@ -30,6 +30,11 @@ export default {
     };
   },
   computed: {
+    infos() {
+      return this.info.filter(
+        v => v.frontmatter.tags != null && v.frontmatter.tags.length > 0
+      );
+    },
     tags() {
       //核心代码，整合markdown中tags的数目
       let allTags = [];
