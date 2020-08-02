@@ -126,6 +126,9 @@ export function resolveSidebarItems(page, regularPath, site, localePath) {
     return resolveHeaders(page)
   }
   const sidebarConfig = localeConfig.sidebar || themeConfig.sidebar
+  if (!sidebarConfig) {
+    return []
+  }
   for (let [key, value] of Object.entries(sidebarConfig)) {//循环侧边栏配置
     if (value == true) {
       let sider = pages.filter((v, k) => {
