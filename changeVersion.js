@@ -2,8 +2,8 @@
  * 更新package.json的服务
  */
 var fs = require('fs'),
-  path = require('path');
-
+  path = require('path'),
+  child = require('child_process');
 const packageFile = __dirname + '/package.json';
 const bl = fs.existsSync(packageFile);
 if (!bl) return;
@@ -28,7 +28,11 @@ try {
 } catch (e) {
   return;
 }
-config = config.replace(list[0], '"version": "' + v_list.join('.') + '"')
+let lastVersions = v_list.join('.');
+child.exec('git tag '+lastVersions, function (err, sto) {
+  console.log(sto);
+})
+config = config.replace(list[0], '"version": "' + lastVersions + '"')
 try {
   fs.writeFileSync(packageFile, config)
 } catch (e) { }
