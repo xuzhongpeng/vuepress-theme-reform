@@ -4,6 +4,8 @@
 
 效果展示： [我的博客](http://JSShou.cn)
 
+立即下载zip包体验(项目已简单配置好)： [blog.zip](https://blog-1253495453.cos.ap-chongqing.myqcloud.com/blog/blog.zip)
+
 此主题继承至 vuepress 的默认主题，添加功能有标签页改造，主页改造，博客分类及展示，gitalk 集成及 gitalk 自动化配置
 
 ## 使用
