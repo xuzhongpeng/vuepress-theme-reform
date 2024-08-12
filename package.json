@@ -1,12 +1,12 @@
 {
   "name": "vuepress-theme-reform",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "description": "a theme for vuepress",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "JSShou",
+  "author": "幺风",
   "license": "MIT",
   "private":false,
   "dependencies": {
@@ -21,8 +21,6 @@
     "theme",
     "gittalk"
   ],
-  "author": "JSShou",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/xuzhongpeng/vuepress-theme-reform/issues"
   },
